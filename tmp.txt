@@ -1,0 +1,14 @@
+html
+<div class="verticalLine">
+
+  some other content<br>
+    and<br>
+    to<br>
+    do<br>
+
+</div>
+
+css
+.verticalLine {
+    border-left: 1px solid #000000;
+}
