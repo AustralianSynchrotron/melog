@@ -15,6 +15,11 @@
             <div id="entry" class="verticalLine">
                 <p>Content</p>
                 <p>whatsamacallit</p>
+                <p>
+                    {% for group in groups %}
+                    {{ group.group_title }}
+                    {%  endfor %}
+                </p>
             </div>
 
         </div>
