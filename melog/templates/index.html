@@ -1,9 +1,27 @@
 {% extends "template.html" %}
 
 {% block content %}
+
+
     <div data-role="collapsible">
         <h4>Add New Entry</h4>
-        <p>form entry widget place holder</p>
+        <label for="text-author" class="ui-hidden-accessible">Author:</label>
+        <input type="text" name="text-author" id="text-author" placeholder="Author" value="">
+        <label for="text-author" class="ui-hidden-accessible">Title:</label>
+        <input type="text" name="text-title" id="text-title" placeholder="Title" value="">
+        <label for="text-date" class="ui-hidden-accessible">Date:</label>
+        <input type="date" name="text-date" id="text-date" placeholder="Date" value="">
+        <label for="text-time" class="ui-hidden-accessible">Time:</label>
+        <input type="time" name="text-time" id="text-time" placeholder="Time" value="">
+        <section id="editor">
+            <div id='edit' style="margin-top: 30px;">
+            </div>
+        </section>
+        <div data-role="controlgroup" data-type="horizontal" data-mini="true">
+            <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b">Save</a>
+            <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-back ui-btn-b">Cancel</a>
+            <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-delete ui-btn-b">Delete</a>
+        </div>
     </div>
     <div class="ui-corner-all custom-corners">
         <div class="ui-bar ui-bar-b">
@@ -24,4 +42,21 @@
 
         </div>
     </div>
+
+    <script src="/static/js/froala_editor.min.js"></script>
+    <!-- <script src="/static/js/libs/jquery-1.11.1.min.js"></script> -->
+    <script src="/static/js/plugins/tables.min.js"></script>
+    <script src="/static/js/plugins/lists.min.js"></script>
+    <script src="/static/js/plugins/colors.min.js"></script>
+    <script src="/static/js/plugins/font_family.min.js"></script>
+    <script src="/static/js/plugins/font_size.min.js"></script>
+    <script src="/static/js/plugins/block_styles.min.js"></script>
+    <script src="/static/js/plugins/media_manager.min.js"></script>
+    <script src="/static/js/plugins/video.min.js"></script>
+    <script>
+        $(function() {
+            $('#edit').editable({inlineMode: false,
+                                 height: 200})
+        });
+    </script>
 {% endblock %}

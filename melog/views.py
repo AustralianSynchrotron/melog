@@ -4,6 +4,14 @@ from melog.models import ElogGroupData,ElogData
 
 @app.route('/')
 def meLog():
-    groups = ElogGroupData.query.all()
+    groups = ElogGroupData.query.filter(ElogGroupData.private == 0)
     return render_template("index.html", groups=groups)
     #return render_template("index.html")
+
+@app.route('/test/')
+def Test():
+    return render_template("test_edit.html")
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404

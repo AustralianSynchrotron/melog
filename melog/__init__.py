@@ -4,6 +4,6 @@ app = Flask(__name__)
 
 import melog.config
 import melog.views
-#if __name__ == '__main__':
-#    app.debug = True #remove for production servers
-#    app.run()
+
+#http://stackoverflow.com/questions/17652937/how-to-build-a-flask-application-around-an-already-existing-database
+
