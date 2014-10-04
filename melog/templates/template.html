@@ -37,11 +37,15 @@
     </div>
 
     <div data-role="panel" id="left-panel" data-display="reveal">
+        {% block search %}
         Search:
+        {% endblock %}
     </div><!-- /left panel -->
 
     <div data-role="panel" id="right-panel" data-position="right" data-display="reveal">
+        {% block config %}
         Other:
+        {% endblock %}
     </div><!-- /right panel -->
 </div>
 </body>

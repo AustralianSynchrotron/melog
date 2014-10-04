@@ -2,6 +2,14 @@
 
 {% block content %}
 
+      <fieldset class="ui-field-contain">
+        <select name="view-group" id="view-group" data-native-menu="false">
+            {% for group in groups %}
+          <option value="{{ group.group_id }}">{{ group.group_title }}</option>
+          {% endfor %}
+        </select>
+      </fieldset>
+
 
     <div data-role="collapsible">
         <h4>Add New Entry</h4>
@@ -10,9 +18,9 @@
         <label for="text-author" class="ui-hidden-accessible">Title:</label>
         <input type="text" name="text-title" id="text-title" placeholder="Title" value="">
         <label for="text-date" class="ui-hidden-accessible">Date:</label>
-        <input type="date" name="text-date" id="text-date" placeholder="Date" value="">
+        <input type="date" name="text-date" id="text-date" placeholder="Date" value="{{ datestamp }}">
         <label for="text-time" class="ui-hidden-accessible">Time:</label>
-        <input type="time" name="text-time" id="text-time" placeholder="Time" value="">
+        <input type="time" name="text-time" id="text-time" placeholder="Time" value="{{ timestamp }}">
         <section id="editor">
             <div id='edit' style="margin-top: 30px;">
             </div>
