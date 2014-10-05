@@ -603,3 +603,7 @@ button[disabled],
     border-left: 1px solid #000000;
     padding-left: 10px;
 }
+
+#search-form {
+    padding-top: 20px;
+}

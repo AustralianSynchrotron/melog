@@ -3,8 +3,9 @@ from melog import app
 from melog.models import ElogGroupData,ElogData
 from datetime import datetime
 
-@app.route('/')
-def meLog():
+@app.route('/<int:year>/<int:month>/<int:day>')
+@app.route('/',defaults={'year':None,'month':None,'day':None})
+def meLog(year,month,day):
     groups = ElogGroupData.query.filter(ElogGroupData.private == 0)
     time = datetime.now().time().strftime("%H:%M:%S")
     date = datetime.now().date()

@@ -1,16 +1,21 @@
 {% extends "template.html" %}
 
+{% block search %}
+
+<form id="search-form">
+    <select name="search-group" id="search-group" data-native-menu="false" style="padding-top: 20px">
+        {% for group in groups %}
+            <option value="{{ group.group_id }}">{{ group.group_title }}</option>
+        {% endfor %}
+    </select>
+    <label for="text-search" class="ui-hidden-accessible">Author:</label>
+    <input type="text" name="text-search" id="text-search" placeholder="Search for" value="">
+    <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-b">Search</a>
+</form>
+
+{% endblock %}
+
 {% block content %}
-
-    <script>
-
-        //$( "#entry-form" ).on( "collapsibleexpand", function( event, ui ) {
-        //    var currentdate = new Date();
-        //    var nowtime = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
-        //    alert(nowtime);
-        //} );
-    </script>
-
     <fieldset class="ui-field-contain">
         <select name="view-group" id="view-group" data-native-menu="false">
             {% for group in groups %}
@@ -108,5 +113,9 @@
             document.getElementById('text-time').value = nowtime;
             document.getElementById('text-date').innerHTML = nowdate;
         } );
+
+        //$(document).on('pagehide', '#select-dialog', function () {
+        //    $('#left-panel').panel('open');
+        //});
     </script>
 {% endblock %}
