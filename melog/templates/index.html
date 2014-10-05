@@ -3,12 +3,12 @@
 {% block search %}
 
 <form id="search-form">
-    <select name="search-group" id="search-group" data-native-menu="false" style="padding-top: 20px">
-        {% for group in groups %}
+    <select name="search-group" id="search-group" data-native-menu="true">
+        {% for group in groups -%}
             <option value="{{ group.group_id }}">{{ group.group_title }}</option>
         {% endfor %}
     </select>
-    <label for="text-search" class="ui-hidden-accessible">Author:</label>
+    <label for="text-search" class="ui-hidden-accessible">Search:</label>
     <input type="text" name="text-search" id="text-search" placeholder="Search for" value="">
     <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-b">Search</a>
 </form>
@@ -18,7 +18,7 @@
 {% block content %}
     <fieldset class="ui-field-contain">
         <select name="view-group" id="view-group" data-native-menu="false">
-            {% for group in groups %}
+            {% for group in groups -%}
                 <option value="{{ group.group_id }}">{{ group.group_title }}</option>
             {% endfor %}
         </select>
@@ -47,25 +47,26 @@
         </fieldset>
     </form>
     <p></p>
+
+    {% for elog in elogEntry %}
     <div class="ui-corner-all custom-corners">
         <div class="ui-bar ui-bar-b">
-            <h3>Heading</h3>
+            <h3>{{ elog.title }}</h3>
         </div>
         <div class="ui-body ui-body-b">
-            <div id="badges">
+            <div id="badges" style="float: left; padding-right: 10px">
+                {{ elog.created }}<br>
+                {{ elog.author }}
             </div>
-            <div id="entry" class="verticalLine">
-                <p>Content</p>
-                <p>whatsamacallit</p>
-                <p>
-                    {% for group in groups %}
-                        {{ group.group_title }}
-                    {%  endfor %}
-                </p>
+            <div id="entry" class="verticalLine" style="float: left">
+                <p>{{ elog.text|safe }}</p>
             </div>
 
         </div>
     </div>
+        <p></p>
+    {% endfor %}
+
 
     <script src="/static/js/froala_editor.min.js"></script>
     <!-- <script src="/static/js/libs/jquery-1.11.1.min.js"></script> -->
