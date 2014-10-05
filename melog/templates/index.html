@@ -2,35 +2,46 @@
 
 {% block content %}
 
-      <fieldset class="ui-field-contain">
+    <script>
+
+        //$( "#entry-form" ).on( "collapsibleexpand", function( event, ui ) {
+        //    var currentdate = new Date();
+        //    var nowtime = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+        //    alert(nowtime);
+        //} );
+    </script>
+
+    <fieldset class="ui-field-contain">
         <select name="view-group" id="view-group" data-native-menu="false">
             {% for group in groups %}
-          <option value="{{ group.group_id }}">{{ group.group_title }}</option>
-          {% endfor %}
+                <option value="{{ group.group_id }}">{{ group.group_title }}</option>
+            {% endfor %}
         </select>
-      </fieldset>
+    </fieldset>
 
-
-    <div data-role="collapsible">
-        <h4>Add New Entry</h4>
-        <label for="text-author" class="ui-hidden-accessible">Author:</label>
-        <input type="text" name="text-author" id="text-author" placeholder="Author" value="">
-        <label for="text-author" class="ui-hidden-accessible">Title:</label>
-        <input type="text" name="text-title" id="text-title" placeholder="Title" value="">
-        <label for="text-date" class="ui-hidden-accessible">Date:</label>
-        <input type="date" name="text-date" id="text-date" placeholder="Date" value="{{ datestamp }}">
-        <label for="text-time" class="ui-hidden-accessible">Time:</label>
-        <input type="time" name="text-time" id="text-time" placeholder="Time" value="{{ timestamp }}">
-        <section id="editor">
-            <div id='edit' style="margin-top: 30px;">
+    <form>
+        <div data-role="collapsible" id="entry-form">
+            <h3>Add New Entry</h3>
+            <label for="text-author" class="ui-hidden-accessible">Author:</label>
+            <input type="text" name="text-author" id="text-author" placeholder="Author" value="">
+            <label for="text-author" class="ui-hidden-accessible">Title:</label>
+            <input type="text" name="text-title" id="text-title" placeholder="Title" value="">
+            <label for="text-date" class="ui-hidden-accessible">Date:</label>
+            <input type="date" name="text-date" id="text-date" placeholder="Date" value="{{ datestamp }}">
+            <label for="text-time" class="ui-hidden-accessible">Time:</label>
+            <input type="text" name="text-time" id="text-time" placeholder="Time" value="{{ timestamp }}">
+            <section id="editor">
+                <div id='edit' style="margin-top: 30px;">
+                </div>
+            </section>
+            <div data-role="controlgroup" data-type="horizontal" data-mini="true">
+                <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b">Save</a>
+                <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-back ui-btn-b">Cancel</a>
+                <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-delete ui-btn-b">Delete</a>
             </div>
-        </section>
-        <div data-role="controlgroup" data-type="horizontal" data-mini="true">
-            <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b">Save</a>
-            <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-back ui-btn-b">Cancel</a>
-            <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-delete ui-btn-b">Delete</a>
         </div>
-    </div>
+    </form>
+    <p></p>
     <div class="ui-corner-all custom-corners">
         <div class="ui-bar ui-bar-b">
             <h3>Heading</h3>
@@ -43,7 +54,7 @@
                 <p>whatsamacallit</p>
                 <p>
                     {% for group in groups %}
-                    {{ group.group_title }}
+                        {{ group.group_title }}
                     {%  endfor %}
                 </p>
             </div>
@@ -62,9 +73,40 @@
     <script src="/static/js/plugins/media_manager.min.js"></script>
     <script src="/static/js/plugins/video.min.js"></script>
     <script>
+        //set the froala text editor to simple edit
         $(function() {
             $('#edit').editable({inlineMode: false,
-                                 height: 200})
+                height: 200})
         });
+
+        //Refreshes date and time when collapsible form is expanded
+        $( "#entry-form" ).on( "collapsibleexpand", function( event, ui ) {
+            var currentdate = new Date();
+            var hor = currentdate.getHours();
+            var min = currentdate.getMinutes();
+            var sec = currentdate.getSeconds();
+            var mon = currentdate.getMonth() + 1;
+            var day = currentdate.getDate();
+            if (hor < 10) {
+                hor = "0" + hor;
+            }
+            if (min < 10) {
+                min = "0" + min;
+            }
+            if (sec < 10) {
+                sec = "0" + sec;
+            }
+            if (mon < 10) {
+                mon = "0" + mon;
+            }
+            if (day < 10) {
+                day = "0" + day;
+            }
+            var nowtime = hor + ":" + min + ":" + sec;
+            var nowdate = day + "/" + mon + "/" + currentdate.getFullYear();
+            //alert(nowdate);
+            document.getElementById('text-time').value = nowtime;
+            document.getElementById('text-date').innerHTML = nowdate;
+        } );
     </script>
 {% endblock %}
