@@ -19,8 +19,8 @@
     <div data-role="header">
         {% block menu %}
             <h1>iLog 2.0</h1>
-            <a href="#left-panel" data-role="buttton" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-btn-icon-left ui-icon-bars ui-btn-icon-notext">Default panel</a>
-            <a href="#right-panel" data-role="buttton" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-btn-icon-right ui-icon-bars ui-btn-icon-notext">Default panel</a>
+            <a href="#left-panel" data-role="buttton" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-btn-icon-left ui-icon-search ui-btn-icon-notext">Default panel</a>
+            <a href="#right-panel" data-role="buttton" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-btn-icon-right ui-icon-gear ui-btn-icon-notext">Default panel</a>
         {% endblock %}
     </div>
 
@@ -44,7 +44,7 @@
 
     <div data-role="panel" id="right-panel" data-position="right" data-display="reveal">
         {% block config %}
-        Other:
+        Config:
         {% endblock %}
     </div><!-- /right panel -->
 </div>
