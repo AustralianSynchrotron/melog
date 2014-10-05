@@ -8,6 +8,7 @@ class ElogGroupData(db.Model):
     group_title = db.Column(db.Text)
     sort = db.Column(db.Integer)
     private = db.Column(db.Integer)
+    urlName = db.Column(db.Text)
 
 class ElogData(db.Model):
 

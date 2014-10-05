@@ -3,10 +3,20 @@ from melog import app
 from melog.models import ElogGroupData,ElogData
 from datetime import datetime
 
+#Useful links
+#http://flask.pocoo.org/docs/0.10/quickstart/
+#https://pythonhosted.org/Flask-SQLAlchemy/index.html
+#http://flask.pocoo.org/docs/0.10/patterns/sqlalchemy/
+
 @app.route('/<group>/<int:year>/<int:month>/<int:day>/')
 @app.route('/<group>/',defaults={'year':None,'month':None,'day':None})
 @app.route('/',defaults={'group':None,'year':None,'month':None,'day':None})
 def meLog(group,year,month,day):
+    if group != None:
+        urlGroup = ElogGroupData.query.filter(ElogGroupData.urlName == group).first_or_404()
+        app.logger.debug(urlGroup.group_title)
+    # else load the default
+
     groups = ElogGroupData.query.filter(ElogGroupData.private == 0).order_by(ElogGroupData.sort)
     eLog = ElogData.query.limit(5).all()
     time = datetime.now().time().strftime("%H:%M:%S")
