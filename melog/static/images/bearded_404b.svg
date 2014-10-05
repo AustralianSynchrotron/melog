@@ -24,7 +24,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -44,7 +44,7 @@
      id="namedview4"
      showgrid="false"
      inkscape:zoom="0.9588368"
-     inkscape:cx="188.53283"
+     inkscape:cx="3.4126928"
      inkscape:cy="267.29613"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
@@ -750,5 +750,17 @@
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Lucida Fax';-inkscape-font-specification:'Lucida Fax'"
              x="250.36914">OUTTA HERE!</tspan></tspan></text>
     </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="179.20639"
+       y="26.863899"
+       id="text4239"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4241"
+         x="179.20639"
+         y="26.863899"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:90px;font-family:'Lucida Bright';-inkscape-font-specification:'Lucida Bright'">404</tspan></text>
   </g>
 </svg>
