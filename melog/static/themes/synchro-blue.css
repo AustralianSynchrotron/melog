@@ -607,3 +607,29 @@ button[disabled],
 #search-form {
     padding-top: 20px;
 }
+
+/* stack all grids below 40em (640px) */
+@media all and (max-width: 40em) {
+	.elog-breakpoint .ui-grid-a .ui-block-a,
+	.elog-breakpoint .ui-grid-a .ui-block-b,
+	.elog-breakpoint .ui-grid-a .ui-block-c,
+	.elog-breakpoint .ui-grid-a .ui-block-d,
+	.elog-breakpoint .ui-grid-a .ui-block-e {
+		width: 100%;
+		float: none;
+	}
+}
+
+/* stack all grids below 40em (640px) */
+@media all and (min-width: 40em) {
+	.elog-breakpoint .ui-grid-a .ui-block-a
+	{
+		width: 19%;
+		float: left;
+	}
+    .elog-breakpoint .ui-grid-a .ui-block-b
+    {
+        width: 79%;
+        float: left;
+    }
+}

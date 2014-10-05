@@ -9,7 +9,7 @@
         {% endfor %}
     </select>
     <label for="text-search" class="ui-hidden-accessible">Search:</label>
-    <input type="text" name="text-search" id="text-search" placeholder="Search for" value="">
+    <input type="text" name="text-search" id="text-search" placeholder="Search for" value="" data-clear-btn="true">
     <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-b">Search</a>
 </form>
 
@@ -28,9 +28,9 @@
         <fieldset data-role="collapsible" id="entry-form">
             <legend>Add New Entry</legend>
             <label for="text-author" class="ui-hidden-accessible">Author:</label>
-            <input type="text" name="text-author" id="text-author" placeholder="Author" value="">
+            <input type="text" name="text-author" id="text-author" placeholder="Author" value="" data-clear-btn="true">
             <label for="text-author" class="ui-hidden-accessible">Title:</label>
-            <input type="text" name="text-title" id="text-title" placeholder="Title" value="">
+            <input type="text" name="text-title" id="text-title" placeholder="Title" value="" data-clear-btn="true">
             <label for="text-date" class="ui-hidden-accessible">Date:</label>
             <input type="date" name="text-date" id="text-date" placeholder="Date" value="{{ datestamp }}">
             <label for="text-time" class="ui-hidden-accessible">Time:</label>
@@ -53,15 +53,16 @@
         <div class="ui-bar ui-bar-b">
             <h3>{{ elog.title }}</h3>
         </div>
-        <div class="ui-body ui-body-b">
-            <div id="badges" style="float: left; padding-right: 10px">
-                {{ elog.created }}<br>
-                {{ elog.author }}
+        <div class="ui-body ui-body-b elog-breakpoint">
+            <div class="ui-grid-a">
+                <div id="badges" class="ui-block-a">
+                    {{ elog.created }}<br>
+                    {{ elog.author }}
+                </div>
+                <div id="entry" class="ui-block-b">
+                    <p>{{ elog.text|safe }}</p>
+                </div>
             </div>
-            <div id="entry" class="verticalLine" style="float: left">
-                <p>{{ elog.text|safe }}</p>
-            </div>
-
         </div>
     </div>
         <p></p>
