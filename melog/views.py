@@ -18,7 +18,7 @@ def meLog(group,year,month,day):
     # else load the default
 
     groups = ElogGroupData.query.filter(ElogGroupData.private == 0).order_by(ElogGroupData.sort)
-    eLog = ElogData.query.limit(5).all()
+    eLog = ElogData.query.order_by(ElogData.created).limit(5)
     time = datetime.now().time().strftime("%H:%M:%S")
     date = datetime.now().date()
     return render_template("index.html", timestamp=time, datestamp=date, groups=groups, elogEntry=eLog)
