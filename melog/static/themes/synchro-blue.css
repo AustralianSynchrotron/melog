@@ -633,3 +633,8 @@ button[disabled],
         float: left;
     }
 }
+
+.scale-img{
+    width: 100%;
+    height: auto;
+}
