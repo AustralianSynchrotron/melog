@@ -1,7 +1,8 @@
-from flask import render_template
+from flask import render_template,session,redirect,url_for,request
 from melog import app
 from melog.models import ElogGroupData,ElogData
 from datetime import datetime
+import ldap
 
 #Useful links
 #http://flask.pocoo.org/docs/0.10/quickstart/
@@ -12,6 +13,9 @@ from datetime import datetime
 @app.route('/<group>/',defaults={'year':None,'month':None,'day':None})
 @app.route('/',defaults={'group':None,'year':None,'month':None,'day':None})
 def meLog(group,year,month,day):
+    if 'username' not in session:
+        return redirect(url_for('Login'))
+
     if group != None:
         urlGroup = ElogGroupData.query.filter(ElogGroupData.urlName == group).first_or_404()
         app.logger.debug(urlGroup.group_title)
@@ -29,9 +33,19 @@ def meLog(group,year,month,day):
 def Test():
     return render_template("test_edit.html")
 
-@app.route('/login/')
+@app.route('/login', methods=['GET','POST'])
 def Login():
+    if request.method == 'POST':
+
+        session['username'] = request.form['text-name']
+        return redirect(url_for('meLog'))
+
     return render_template("login.html")
+
+@app.route('/logout')
+def Logout():
+    session.pop('username',None)
+    return redirect(url_for('Login'))
 
 @app.errorhandler(404)
 def page_not_found(e):

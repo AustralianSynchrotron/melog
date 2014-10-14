@@ -1,6 +1,10 @@
 {
-    "host":     "",
-    "dbuser":   "",
-    "password": "",
-    "database": ""
+    "host":         "",
+    "dbuser":       "",
+    "password":     "",
+    "database":     "",
+    "session_key":  "",
+    "ldap_server":  "",
+    "ldap_sx":      "",
+    "ldap_dn":      ""
 }
