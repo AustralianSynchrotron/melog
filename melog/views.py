@@ -16,11 +16,12 @@ def meLog(group,year,month,day):
         urlGroup = ElogGroupData.query.filter(ElogGroupData.urlName == group).first_or_404()
         app.logger.debug(urlGroup.group_title)
     # else load the default
-
-    groups = ElogGroupData.query.filter(ElogGroupData.private == 0).order_by(ElogGroupData.sort)
-    eLog = ElogData.query.order_by(ElogData.created).limit(5)
     time = datetime.now().time().strftime("%H:%M:%S")
     date = datetime.now().date()
+
+    groups = ElogGroupData.query.filter(ElogGroupData.private == 0).order_by(ElogGroupData.sort)
+    eLog = ElogData.query.filter(ElogData.created > date).from_self().order_by(ElogData.created)
+
     return render_template("index.html", timestamp=time, datestamp=date, groups=groups, elogEntry=eLog)
     #return render_template("index.html")
 
