@@ -1,5 +1,4 @@
 from melog import app
-#from flask import g
 import json
 
 json_data=open('melog/config.json')
@@ -15,7 +14,3 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://%s:%s@%s/%s' % (username,passwo
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://username:password@host:port/db_name'
 
 app.secret_key = data['session_key']
-
-#g.ldap_server = data['ldap_server']
-#g.ldap_sx = data['ldap_sx']
-#g.ldap_dx = data['ldap_dn']

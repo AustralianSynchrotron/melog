@@ -30,6 +30,12 @@
         <input type="password" name="text-pass" id="text-pass" placeholder="Password" value="" data-clear-btn="true">
         <input type="submit" value="Login">
         <!--<a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-b">Login</a>-->
+
+        {% if error %}
+        <p class="error">
+            <strong>Error:</strong> {{ error }}
+        </p>
+        {% endif %}
     </div>
 </form>
 </body>

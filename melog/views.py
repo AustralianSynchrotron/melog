@@ -1,5 +1,6 @@
 from flask import render_template,session,redirect,url_for,request
 from melog import app
+from config import data
 from melog.models import ElogGroupData,ElogData
 from datetime import datetime
 import ldap
@@ -36,11 +37,33 @@ def Test():
 @app.route('/login', methods=['GET','POST'])
 def Login():
     if request.method == 'POST':
+        username = request.form['text-name']
+        password = request.form['text-pass']
 
-        session['username'] = request.form['text-name']
-        return redirect(url_for('meLog'))
+        if ((username == "") or (password == "")):
+            return redirect(url_for('Login'))
 
-    return render_template("login.html")
+        ldap_server = "ldap://"+data['ldap_server']
+        ldap_dn = data['ldap_dn']
+        ldap_sx = data['ldap_sx']
+        connect = ldap.initialize(ldap_server)
+        try:
+            connect.simple_bind_s(username+ldap_sx,password)
+            connect.search_s(ldap_dn,ldap.SCOPE_SUBTREE,
+                                  '(&(objectclass=User) (sAMAccountName='+username+'))',
+                                  ['title','displayName','givenName'])
+
+            session['username'] = username
+            return redirect(url_for('meLog'))
+
+        except ldap.LDAPError,e:
+            #Failed login unbind and return to login screen
+            connect.unbind_s()
+            return render_template("login.html", error=e)
+
+    else:
+        #if GET request just display the login page
+        return render_template("login.html")
 
 @app.route('/logout')
 def Logout():
