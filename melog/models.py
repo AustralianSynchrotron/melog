@@ -26,7 +26,7 @@ class ElogData(db.Model):
     read_only = db.Column(db.Integer)
     comment = db.Column(db.Integer)
 
-class SolUsers(db.model):
+class SolUsers(db.Model):
 
     __tablename__ = 'sol_users'
 
