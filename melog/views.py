@@ -1,7 +1,7 @@
 from flask import render_template,session,redirect,url_for,request
 from melog import app
 from config import data
-from melog.models import ElogGroupData,ElogData
+from melog.models import ElogGroupData,ElogData,SolUsers
 from datetime import datetime
 import ldap
 
@@ -19,7 +19,7 @@ def meLog(group,year,month,day):
 
     if group != None:
         urlGroup = ElogGroupData.query.filter(ElogGroupData.urlName == group).first_or_404()
-        app.logger.debug(urlGroup.group_title)
+        #app.logger.debug(urlGroup.group_title)
     # else load the default
     time = datetime.now().time().strftime("%H:%M:%S")
     date = datetime.now().date()
@@ -47,19 +47,25 @@ def Login():
         ldap_dn = data['ldap_dn']
         ldap_sx = data['ldap_sx']
         connect = ldap.initialize(ldap_server)
+        success = False
         try:
             connect.simple_bind_s(username+ldap_sx,password)
-            connect.search_s(ldap_dn,ldap.SCOPE_SUBTREE,
-                                  '(&(objectclass=User) (sAMAccountName='+username+'))',
-                                  ['title','displayName','givenName'])
-
-            session['username'] = username
-            return redirect(url_for('meLog'))
+            success = True
 
         except ldap.LDAPError,e:
             #Failed login unbind and return to login screen
             connect.unbind_s()
             return render_template("login.html", error=e)
+
+        if success:
+            session['username'] = username
+
+            tmp_group = SolUsers.query.filter(SolUsers.username == username).first_or_404()
+            default_group = ElogGroupData.query.filter(ElogGroupData.group_id == tmp_group.gid).first_or_404()
+            #app.logger.debug(default_group.urlName)
+
+            return redirect("/%s" % default_group.urlName)
+            #return render_template("index.html")
 
     else:
         #if GET request just display the login page
