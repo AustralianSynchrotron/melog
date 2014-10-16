@@ -47,24 +47,24 @@ def Login():
         ldap_dn = data['ldap_dn']
         ldap_sx = data['ldap_sx']
         connect = ldap.initialize(ldap_server)
-        success = False
+        #success = False
         try:
             connect.simple_bind_s(username+ldap_sx,password)
-            success = True
+            #success = True
 
         except ldap.LDAPError,e:
             #Failed login unbind and return to login screen
             connect.unbind_s()
             return render_template("login.html", error=e)
 
-        if success:
-            session['username'] = username
+        #if success:
+        session['username'] = username
 
-            tmp_group = SolUsers.query.filter(SolUsers.username == username).first_or_404()
-            default_group = ElogGroupData.query.filter(ElogGroupData.group_id == tmp_group.gid).first_or_404()
-            #app.logger.debug(default_group.urlName)
+        tmp_group = SolUsers.query.filter(SolUsers.username == username).first_or_404()
+        default_group = ElogGroupData.query.filter(ElogGroupData.group_id == tmp_group.gid).first_or_404()
+        #app.logger.debug(default_group.urlName)
 
-            return redirect("/%s" % default_group.urlName)
+        return redirect("/%s" % default_group.urlName)
             #return render_template("index.html")
 
     else:
