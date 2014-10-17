@@ -27,20 +27,36 @@ def meLog(urlGroup,year,month,day):
     if request.args.get('d'):
         day = request.args.get('d')
 
+    # get the current date and time
+    time = datetime.now().time().strftime("%H:%M:%S")
+    date = datetime.now().date()
+    # If year not specified use current
+    if not year:
+        year = date.year
+
+    # If month not specified use current
+    if not month:
+        month = date.month
+
+    # If day not specified use current
+    if not day:
+        day = date.day
+
     if urlGroup != None:
         tmpGroup = ElogGroupData.query.filter(ElogGroupData.urlName == urlGroup).first_or_404()
         group = tmpGroup.group_title
-        #app.logger.debug(urlGroup.group_title)
+        groupNum = tmpGroup.gid #???
     # else load the default
     else:
         group = session['group']
         urlGroup = ElogGroupData.query.filter(ElogGroupData.group_title == group).first_or_404()
 
-    time = datetime.now().time().strftime("%H:%M:%S")
-    date = datetime.now().date()
-
+    #Get a list of available groups for select menu display
     groups = ElogGroupData.query.filter(ElogGroupData.private == 0).order_by(ElogGroupData.sort)
-    eLog = ElogData.query.filter(ElogData.created > date).from_self().order_by(ElogData.created)
+
+    #Get the relevent log entries (if no date specified - then todays date)
+
+    eLog = ElogData.query.filter(ElogData.created > date).filter().from_self().order_by(ElogData.created)
 
     return render_template("index.html", timestamp=time, datestamp=date, groups=groups, default_group=group, elogEntry=eLog)
     #return render_template("index.html")
