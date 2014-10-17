@@ -18,8 +18,9 @@
 {% block content %}
     <fieldset class="ui-field-contain">
         <select name="view-group" id="view-group" data-native-menu="false">
+            {#  set default_group = default_group|string #}
             {% for group in groups -%}
-                <option value="{{ group.group_id }}">{{ group.group_title }}</option>
+                <option value="{{ group.group_id }}" {% if group.group_title|string == default_group|string %}selected{% endif %}>{{ group.group_title }}</option>
             {% endfor %}
         </select>
     </fieldset>
