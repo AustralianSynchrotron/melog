@@ -122,7 +122,17 @@
         function(event, ui){
             var e = document.getElementById("view-group");
             var strGroup = e.options[e.selectedIndex].value;
-            window.location.href = "/"+strGroup;
+            var currentdate = new Date();
+            var yea = currentdate.getFullYear();
+            var mon = currentdate.getMonth() + 1;
+            var day = currentdate.getDate();
+            if (mon < 10) {
+                mon = "0" + mon;
+            }
+            if (day < 10) {
+                day = "0" + day;
+            }
+            window.location.href = "/"+strGroup+"/"+yea+"/"+mon+"/"+day;
             //alert(strGroup)
         });
 
