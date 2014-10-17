@@ -17,6 +17,16 @@ def meLog(group,year,month,day):
     if 'username' not in session:
         return redirect(url_for('Login'))
 
+    #required for backwards compatibility
+    if request.args.get('y'):
+        year = request.args.get('y')
+
+    if request.args.get('m'):
+        month = request.args.get('m')
+
+    if request.args.get('d'):
+        day = request.args.get('d')
+
     if group != None:
         urlGroup = ElogGroupData.query.filter(ElogGroupData.urlName == group).first_or_404()
         #app.logger.debug(urlGroup.group_title)
