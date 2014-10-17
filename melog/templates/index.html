@@ -20,7 +20,7 @@
         <select name="view-group" id="view-group" data-native-menu="false">
             {#  set default_group = default_group|string #}
             {% for group in groups -%}
-                <option value="{{ group.group_id }}" {% if group.group_title|string == default_group|string %}selected{% endif %}>{{ group.group_title }}</option>
+                <option value="{{ group.urlName }}" {% if group.group_title|string == default_group|string %}selected{% endif %}>{{ group.group_title }}</option>
             {% endfor %}
         </select>
     </fieldset>
@@ -117,8 +117,14 @@
             document.getElementById('text-date').innerHTML = nowdate;
         } );
 
-        //$(document).on('pagehide', '#select-dialog', function () {
-        //    $('#left-panel').panel('open');
-        //});
+        // Update page on change to dropdown menu
+        $("#view-group").bind("change",
+        function(event, ui){
+            var e = document.getElementById("view-group");
+            var strGroup = e.options[e.selectedIndex].value;
+            window.location.href = "/"+strGroup;
+            //alert(strGroup)
+        });
+
     </script>
 {% endblock %}
