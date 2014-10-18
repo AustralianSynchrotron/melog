@@ -21,12 +21,22 @@
             <h1>Mmmm-Soul 3.1.42</h1>
             <div class="ui-btn-left" data-role="controlgroup" data-type="horizontal">
                 <a href="#left-panel" data-role="buttton" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-btn-icon-right ui-icon-search ui-btn-icon-notext">Search panel</a>
-                <a href="/menu" data-role="buttton" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-btn-icon-right ui-icon-bullets ui-btn-icon-notext">Show Menu</a>
+                <a href="#popupMenu" data-rel="popup" data-role="buttton" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-btn-icon-right ui-icon-bullets ui-btn-icon-notext">Show Menu</a>
             </div>
             <div class="ui-btn-right" data-role="controlgroup" data-type="horizontal">
                 <a href="/logout" data-role="buttton" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-btn-icon-right ui-icon-power ui-btn-icon-notext">Log Out</a>
                 <a href="#right-panel" data-role="buttton" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-btn-icon-right ui-icon-gear ui-btn-icon-notext">Config</a>
             </div>
+
+            <div data-role="popup" id="popupMenu" data-theme="b">
+                <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                    <li data-role="list-divider">Menu</li>
+                    <li><a href="http://sol.synchrotron.org.au/stats/">Stats</a></li>
+                    <li><a href="http://sol.synchrotron.org.au/logs/">Logs</a></li>
+                    <li><a href="http://sol.synchrotron.org.au/handover/">Handover</a></li>
+                    <li><a href="http://sol.synchrotron.org.au/roster/">Roster</a></li>
+                </ul>
+</div>
         {% endblock %}
     </div>
 
