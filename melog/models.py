@@ -13,8 +13,8 @@ class ElogGroupData(db.Model):
 class ElogGroups(db.Model):
     __tablename__ = 'elog_groups'
 
-    entry_id = db.Column(db.Integer)
-    group_id = db.Column(db.Integer)
+    entry_id = db.Column(db.Integer, primary_key=True)
+    group_id = db.Column(db.Integer, primary_key=True)
 
 class ElogData(db.Model):
 
