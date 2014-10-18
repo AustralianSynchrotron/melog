@@ -10,6 +10,12 @@ class ElogGroupData(db.Model):
     private = db.Column(db.Integer)
     urlName = db.Column(db.Text)
 
+class ElogGroups(db.Model):
+    __tablename__ = 'elog_groups'
+
+    entry_id = db.Column(db.Integer)
+    group_id = db.Column(db.Integer)
+
 class ElogData(db.Model):
 
     __tablename__ = 'elog_data'
