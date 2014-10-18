@@ -1,7 +1,7 @@
 from flask import render_template,session,redirect,url_for,request
 from melog import app
 from config import data
-from melog.models import ElogGroupData,ElogData,SolUsers
+from melog.models import ElogGroupData,ElogGroups,ElogData,SolUsers
 from datetime import datetime
 import ldap
 
@@ -45,20 +45,25 @@ def meLog(urlGroup,year,month,day):
     if urlGroup != None:
         tmpGroup = ElogGroupData.query.filter(ElogGroupData.urlName == urlGroup).first_or_404()
         group = tmpGroup.group_title
-        #groupNum = tmpGroup.gid #???
+        groupNum = tmpGroup.group_id
     # else load the default
     else:
         group = session['group']
-        urlGroup = ElogGroupData.query.filter(ElogGroupData.group_title == group).first_or_404()
+        tmpGroup = ElogGroupData.query.filter(ElogGroupData.group_title == group).first_or_404()
+        urlGroup = tmpGroup.urlName
+        groupNum = tmpGroup.group_id
 
     #Get a list of available groups for select menu display
     groups = ElogGroupData.query.filter(ElogGroupData.private == 0).order_by(ElogGroupData.sort)
 
-    #Get the relevent log entries (if no date specified - then todays date)
+    #Get the relevent log entries for group(if no date specified - then todays date)
 
-    eLog = ElogData.query.filter(ElogData.created > date).filter().from_self().order_by(ElogData.created)
+    eLogJoin = ElogData.query.join(ElogGroups,(ElogGroups.entry_id == ElogData.entry_id))\
+                             .filter(ElogData.created > date,ElogGroups.group_id == groupNum)\
+                             .from_self()\
+                             .order_by(ElogData.created)
 
-    return render_template("index.html", timestamp=time, datestamp=date, groups=groups, default_group=group, elogEntry=eLog)
+    return render_template("index.html", timestamp=time, datestamp=date, groups=groups, default_group=group, elogEntry=eLogJoin)
     #return render_template("index.html")
 
 @app.route('/test/')
