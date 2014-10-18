@@ -45,10 +45,16 @@
 
         {% endblock %}
     </div>
-    <div data-role="footer">
+    <div data-role="footer" data-position="fixed">
         {% block footer %}
-            <a href="#" onclick="$.mobile.silentScroll(0)" data-role="button" class="ui-btn ui-btn-icon-right ui-icon-arrow-u ui-btn-icon-notext ui-corner-all">Scroll to Top</a>
-
+            <a href="#" onclick="$.mobile.silentScroll(0)" data-role="button" class="ui-btn ui-btn-icon-right ui-icon-arrow-u ui-corner-all">Top</a>
+            <div data-role="navbar" data-theme="b">
+                <ul>
+                    <li><a href="/{{ url_group }}/{{ year }}/{{ month }}/{{ day - 1 }}" data-icon="carat-l">Prev</a></li>
+                    <li><a href="" class="ui-btn-active" data-icon="calendar">{{ formatDate }}</a></li>
+                    <li><a href="/{{ url_group }}/{{ year }}/{{ month }}/{{ day + 1 }}" data-icon="carat-r">Next</a></li>
+                </ul>
+            </div>
         {% endblock %}
     </div>
 

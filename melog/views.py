@@ -103,7 +103,11 @@ def meLog(urlGroup,year,month,day):
                                 .from_self() \
                                 .order_by(ElogData.created.desc())
 
-    return render_template("index.html", timestamp=time, datestamp=date, groups=groups, default_group=group, elogEntry=eLogJoin)
+    tmpDate = "%s %s %s" % (year,month,day)
+    strDate = datetime.strptime(tmpDate,"%Y %m %d").strftime("%a %d %b %Y")
+
+    return render_template("index.html", year=year, month=month, day=day, timestamp=time, datestamp=date, formatDate=strDate,
+                           groups=groups, default_group=group, url_group=urlGroup, elogEntry=eLogJoin)
     #return render_template("index.html")
 
 @app.route('/test/')
