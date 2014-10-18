@@ -12,7 +12,7 @@ import ldap
 
 @app.route('/<urlGroup>/<int:year>/<int:month>/<int:day>/')
 @app.route('/<urlGroup>/',defaults={'year':None,'month':None,'day':None})
-@app.route('/',defaults={'group':None,'year':None,'month':None,'day':None})
+@app.route('/',defaults={'urlGroup':None,'year':None,'month':None,'day':None})
 def meLog(urlGroup,year,month,day):
     if 'username' not in session:
         return redirect(url_for('Login'))
@@ -45,7 +45,7 @@ def meLog(urlGroup,year,month,day):
     if urlGroup != None:
         tmpGroup = ElogGroupData.query.filter(ElogGroupData.urlName == urlGroup).first_or_404()
         group = tmpGroup.group_title
-        groupNum = tmpGroup.gid #???
+        #groupNum = tmpGroup.gid #???
     # else load the default
     else:
         group = session['group']
