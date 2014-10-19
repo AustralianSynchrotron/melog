@@ -25,7 +25,7 @@
         </select>
     </fieldset>
 
-    <form>
+    <form id="new-entry-form" action="/{{ url_group }}/{{ year }}/{{ month }}/{{ day }}/" method="POST">
         <fieldset data-role="collapsible" id="entry-form">
             <legend>Add New Entry</legend>
             <label for="text-author" class="ui-hidden-accessible">Author:</label>
@@ -41,7 +41,7 @@
                 </textarea>
             </section>
             <div data-role="controlgroup" data-type="horizontal" data-mini="true">
-                <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b">Save</a>
+                <a href="#" onclick="document.forms['new-entry-form'].submit();" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b">Save</a>
                 <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-back ui-btn-b">Cancel</a>
                 <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-delete ui-btn-b">Delete</a>
             </div>
