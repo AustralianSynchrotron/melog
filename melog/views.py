@@ -20,7 +20,7 @@ def meLog(urlGroup,year,month,day):
     if 'username' not in session:
         return redirect(url_for('Login'))
 
-    #required for backwards compatibility
+    #required for backwards compatibility with sol2
     if request.args.get('y'):
         year = request.args.get('y')
 
