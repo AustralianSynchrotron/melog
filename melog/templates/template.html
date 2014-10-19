@@ -50,9 +50,9 @@
             <a href="#" onclick="$.mobile.silentScroll(0)" data-role="button" class="ui-btn ui-btn-icon-right ui-icon-arrow-u ui-corner-all">Top</a>
             <div data-role="navbar" data-theme="b">
                 <ul>
-                    <li><a href="/{{ url_group }}/{{ year }}/{{ month }}/{{ day - 1 }}" data-icon="carat-l">Prev</a></li>
-                    <li><a href="" class="ui-btn-active" data-icon="calendar">{{ formatDate }}</a></li>
-                    <li><a href="/{{ url_group }}/{{ year }}/{{ month }}/{{ day + 1 }}" data-icon="carat-r">Next</a></li>
+                    <li><a href="/{{ url_group }}/{{ year }}/{{ month }}/{{ day - 1 }}" data-icon="carat-l" data-ajax="false">Prev</a></li>
+                    <li><a href="" class="ui-btn-active" data-icon="calendar" data-ajax="false">{{ formatDate }}</a></li>
+                    <li><a href="/{{ url_group }}/{{ year }}/{{ month }}/{{ day + 1 }}" data-icon="carat-r" data-ajax="false">Next</a></li>
                 </ul>
             </div>
         {% endblock %}
