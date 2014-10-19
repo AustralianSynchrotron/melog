@@ -638,3 +638,12 @@ button[disabled],
     width: 100%;
     height: auto;
 }
+
+a.back-to-top.ui-btn-right.ui-btn.ui-icon-arrow-u.ui-btn-icon-right.ui-btn-inline.ui-corner-all{
+    position: fixed;
+    right: -15px;
+    top: auto;
+    bottom: 55px;
+    background-color: rgb(256, 256, 256); /* for older browser support*/
+    background-color: rgba(256, 256, 256, 0.6);
+}
