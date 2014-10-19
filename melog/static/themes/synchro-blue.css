@@ -647,3 +647,7 @@ a.back-to-top.ui-btn-right.ui-btn.ui-icon-arrow-u.ui-btn-icon-right.ui-btn-inlin
     background-color: rgb(256, 256, 256); /* for older browser support*/
     background-color: rgba(256, 256, 256, 0.6);
 }
+
+#dateSelect{
+    height: 278px
+}

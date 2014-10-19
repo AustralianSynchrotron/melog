@@ -71,6 +71,23 @@
 
     <a href="#" onclick="$.mobile.silentScroll(0)" data-role="button" data-position="fixed" class="back-to-top ui-btn ui-btn-inline ui-btn-right ui-btn-icon-right ui-icon-arrow-u ui-corner-all ">Top</a>
 
+
+{% endblock %}
+
+{% block footer %}
+
+    <div data-role="popup" id="dateSelect" data-arrow="b">
+        <!--<input type="text" data-role="date">-->
+        <div id="dateSelectInput"></div>
+    </div>
+    <div data-role="navbar" data-theme="b">
+        <ul>
+            <li><a href="/{{ url_group }}/{{ year }}/{{ month }}/{{ day - 1 }}" data-icon="carat-l" data-ajax="false">Prev</a></li>
+            <li><a href="#" id="open-dateSelect" class="ui-btn-active date_select" data-icon="calendar" data-ajax="false">{{ formatDate }}</a></li>
+            <li><a href="/{{ url_group }}/{{ year }}/{{ month }}/{{ day + 1 }}" data-icon="carat-r" data-ajax="false">Next</a></li>
+        </ul>
+    </div>
+
     <script src="/static/js/froala_editor.min.js"></script>
     <!-- <script src="/static/js/libs/jquery-1.11.1.min.js"></script> -->
     <script src="/static/js/plugins/tables.min.js"></script>
@@ -137,16 +154,20 @@
             //alert(strGroup)
         });
 
+        $.mobile.document.on( "click", "#open-dateSelect", function( evt ) {
+            $( "#dateSelect" ).popup( "open", { x: evt.pageX, y: evt.pageY } );
+            evt.preventDefault();
+
+        });
+
+        $("#dateSelectInput").datepicker({
+            dateFormat: 'yy/mm/dd',
+            onSelect: function(selectedDate,event) {
+                var e = document.getElementById("view-group");
+                var strGroup = e.options[e.selectedIndex].value;
+                window.location.href = "/"+strGroup+"/"+selectedDate;
+            }
+        });
+
     </script>
-{% endblock %}
-
-{% block footer %}
-
-    <div data-role="navbar" data-theme="b">
-        <ul>
-            <li><a href="/{{ url_group }}/{{ year }}/{{ month }}/{{ day - 1 }}" data-icon="carat-l" data-ajax="false">Prev</a></li>
-            <li><a href="" class="ui-btn-active" data-icon="calendar" data-ajax="false">{{ formatDate }}</a></li>
-            <li><a href="/{{ url_group }}/{{ year }}/{{ month }}/{{ day + 1 }}" data-icon="carat-r" data-ajax="false">Next</a></li>
-        </ul>
-    </div>
 {% endblock %}
