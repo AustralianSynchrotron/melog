@@ -11,6 +11,7 @@ import ldap
 #http://flask.pocoo.org/docs/0.10/quickstart/
 #https://pythonhosted.org/Flask-SQLAlchemy/index.html
 #http://flask.pocoo.org/docs/0.10/patterns/sqlalchemy/
+#http://www.lfd.uci.edu/~gohlke/pythonlibs/
 
 @app.route('/<urlGroup>/<int:year>/<int:month>/<int:day>/', methods=['GET','POST'])
 @app.route('/<urlGroup>/<int:year>/<int:month>/',defaults={'day':None})
@@ -20,14 +21,17 @@ import ldap
 def meLog(urlGroup,year,month,day):
     if 'username' not in session:
         return redirect(url_for('Login'))
+        #might need to change this to allow headless data posting from external apps (Matlab, ALH etc)
 
     if request.method == 'POST':
+        #TODO: need some error checking on these inputs
         author = request.form['text-author']
         title = request.form['text-title']
         date = request.form['text-date']
         time = request.form['text-time']
         text = request.form['text-edit']
 
+        #Convert the date and time strings into a datetime object
         strDateTime = "%s %s" % (date,time)
         dtDateTime = datetime.strptime(strDateTime,"%Y-%m-%d %H:%M:%S") #2014-10-20 21:52:07
 
@@ -38,15 +42,15 @@ def meLog(urlGroup,year,month,day):
         #create the db object to write to db
         entry = ElogData(title=title,author=author,created=dtDateTime,text=text,read_only=0)
         db.session.add(entry)
-        db.session.flush()
+        db.session.flush() #flush the session to get the primary key of the yet to be inserted ElogData
         groups = ElogGroups(entry_id=entry.entry_id,group_id=groupNum)
         db.session.add(groups)
-        db.session.commit()
+        db.session.commit() #now write the changes to the db
 
         return redirect("/%s/%s/%s/%s/" % (urlGroup,year,month,day))
 
     else:
-        #required for backwards compatibility with sol2
+        #required for backwards compatibility with sol2 - Is this needed?
         if request.args.get('y'):
             year = request.args.get('y')
 
@@ -129,6 +133,7 @@ def meLog(urlGroup,year,month,day):
                                     .from_self() \
                                     .order_by(ElogData.created.desc())
 
+        #Reformat the provided date for navigation display
         tmpDate = "%s %s %s" % (year,month,day)
         strDate = datetime.strptime(tmpDate,"%Y %m %d").strftime("%a %d %b %Y")
 
@@ -138,6 +143,7 @@ def meLog(urlGroup,year,month,day):
 
 @app.route('/test/')
 def Test():
+    #A page holder for testing things
     return render_template("test_edit.html")
 
 @app.route('/login', methods=['GET','POST'])
@@ -146,9 +152,11 @@ def Login():
         username = request.form['text-name']
         password = request.form['text-pass']
 
+        #Make sure there are no blank values - simple test, maybe need more?
         if ((username == "") or (password == "")):
             return redirect(url_for('Login'))
 
+        #load the ldap setting from the config.json
         ldap_server = "ldap://"+data['ldap_server']
         ldap_dn = data['ldap_dn']
         ldap_sx = data['ldap_sx']
@@ -161,14 +169,14 @@ def Login():
         except ldap.LDAPError,e:
             #Failed login unbind and return to login screen
             connect.unbind_s()
-            return render_template("login.html", error=e)
+            return render_template("login.html", error=e) #maybe provide more user friendly error message
 
         #if success
         tmp_group = SolUsers.query.filter(SolUsers.username == username).first_or_404()
         default_group = ElogGroupData.query.filter(ElogGroupData.group_id == tmp_group.gid).first_or_404()
         #app.logger.debug(default_group.urlName)
 
-        #assign session variables
+        #assign session variables for convenient later reference
         session['username'] = username
         session['group'] = default_group.group_title
 
@@ -181,7 +189,9 @@ def Login():
 
 @app.route('/logout')
 def Logout():
+    #remove session vars will logout
     session.pop('username',None)
+    session.pop('group',None)
     return redirect(url_for('Login'))
 
 @app.errorhandler(404)
