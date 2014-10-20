@@ -2,6 +2,7 @@ from flask import render_template,session,redirect,url_for,request
 from melog import app
 from config import data
 from melog.models import ElogGroupData,ElogGroups,ElogData,SolUsers
+from melog.database import db
 from sqlalchemy.sql import extract
 from datetime import datetime
 import ldap
@@ -26,9 +27,23 @@ def meLog(urlGroup,year,month,day):
         date = request.form['text-date']
         time = request.form['text-time']
         text = request.form['text-edit']
-        #app.logger.debug(text)
 
-        return redirect("/%s/%s/%s/%s/" % (urlGroup,year,month,day)) #change to submitted entry date
+        strDateTime = "%s %s" % (date,time)
+        dtDateTime = datetime.strptime(strDateTime,"%Y-%m-%d %H:%M:%S") #2014-10-20 21:52:07
+
+        #Need the group_id to update the elog groups table
+        tmpGroup = ElogGroupData.query.filter(ElogGroupData.urlName == urlGroup).first_or_404()
+        groupNum = tmpGroup.group_id
+
+        #create the db object to write to db
+        entry = ElogData(title=title,author=author,created=dtDateTime,text=text,read_only=0)
+        db.session.add(entry)
+        db.session.flush()
+        groups = ElogGroups(entry_id=entry.entry_id,group_id=groupNum)
+        db.session.add(groups)
+        db.session.commit()
+
+        return redirect("/%s/%s/%s/%s/" % (urlGroup,year,month,day))
 
     else:
         #required for backwards compatibility with sol2
