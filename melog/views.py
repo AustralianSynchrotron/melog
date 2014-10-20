@@ -28,7 +28,7 @@ def meLog(urlGroup,year,month,day):
         text = request.form['text-edit']
         #app.logger.debug(text)
 
-        return redirect("/"+urlGroup+"/"+year+"/"+month+"/"+day+"/") #change to submitted entry date
+        return redirect("/%s/%s/%s/%s/" % (urlGroup,year,month,day)) #change to submitted entry date
 
     else:
         #required for backwards compatibility with sol2
