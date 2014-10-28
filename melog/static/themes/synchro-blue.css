@@ -610,15 +610,22 @@ button[disabled],
 
 /* stack all grids below 40em (640px) */
 @media all and (max-width: 40em) {
-	.elog-breakpoint .ui-grid-a .ui-block-a,
-	.elog-breakpoint .ui-grid-a .ui-block-b,
-	.elog-breakpoint .ui-grid-a .ui-block-c,
-	.elog-breakpoint .ui-grid-a .ui-block-d,
-	.elog-breakpoint .ui-grid-a .ui-block-e {
-		width: 100%;
-		float: none;
-	}
+    .elog-breakpoint .ui-grid-a .ui-block-a,
+    .elog-breakpoint .ui-grid-a .ui-block-b,
+    .elog-breakpoint .ui-grid-a .ui-block-c,
+    .elog-breakpoint .ui-grid-a .ui-block-d,
+    .elog-breakpoint .ui-grid-a .ui-block-e {
+        width: 100%;
+        float: none;
+    }
+    #left-panel {
+        width: 100%;
+    }
+    #right-panel {
+        width: 100%;
+    }
 }
+
 
 /* stack all grids below 40em (640px) */
 @media all and (min-width: 40em) {
