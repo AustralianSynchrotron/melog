@@ -2,15 +2,15 @@
 
 {% block search %}
 <div id="top"></div>
-<form id="search-form">
+<form id="search-form" action="/search/" method="POST">
     <select name="search-group" id="search-group" data-native-menu="true">
         {% for group in groups -%}
             <option value="{{ group.group_id }}">{{ group.group_title }}</option>
         {% endfor %}
     </select>
-    <label for="text-search" class="ui-hidden-accessible">Search:</label>
-    <input type="text" name="text-search" id="text-search" placeholder="Search for" value="" data-clear-btn="true">
-    <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-b">Search</a>
+    <label for="search-text" class="ui-hidden-accessible">Search:</label>
+    <input type="text" name="search-text" id="search-text" placeholder="Search for" value="" data-clear-btn="true">
+    <a href="#" onclick="document.forms['search-form'].submit();" class="ui-shadow ui-btn ui-corner-all ui-btn-b">Search</a>
 </form>
 
 {% endblock %}

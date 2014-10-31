@@ -147,7 +147,9 @@ def Search():
         searchGroup = request.form['search-group']
         searchText = request.form['search-text']
         searchTextList = searchText.split(" ")
+        searchTextList = [str(x) for x in searchTextList]
         # http://stackoverflow.com/questions/2640628/sqlalchemy-an-efficient-better-select-by-primary-keys
+        # http://docs.sqlalchemy.org/en/latest/orm/internals.html#sqlalchemy.orm.properties.ColumnProperty.Comparator
         searchFilter = and_( * [ElogData.text.contains(x) for x in searchTextList])
 
         eLogSearch = ElogData.query.join(ElogGroups,(ElogGroups.entry_id == ElogData.entry_id)) \
@@ -159,7 +161,7 @@ def Search():
         groups = ElogGroupData.query.filter(ElogGroupData.private == 0).order_by(ElogGroupData.sort)
 
         #return "Search for %s: list %s: filters %s: query %s" % (searchText, searchTextList, searchFilter, eLogSearch)
-        return render_template("search.html",elogEntry=eLogSearch, groups=groups)
+        return render_template("search.html",elogEntry=eLogSearch, groups=groups, searchText=searchTextList)
 
 @app.route('/test/')
 def Test():
