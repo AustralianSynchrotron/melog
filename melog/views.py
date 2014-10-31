@@ -3,7 +3,7 @@ from melog import app
 from config import data
 from melog.models import ElogGroupData,ElogGroups,ElogData,SolUsers
 from melog.database import db
-from sqlalchemy.sql import extract
+from sqlalchemy.sql import extract,and_,or_
 from datetime import datetime
 import ldap
 
@@ -140,6 +140,26 @@ def meLog(urlGroup,year,month,day):
         return render_template("index.html", year=year, month=month, day=day, timestamp=time, datestamp=date, formatDate=strDate,
                                groups=groups, default_group=group, url_group=urlGroup, elogEntry=eLogJoin)
         #return render_template("index.html")
+
+@app.route('/search/', methods=['POST'])
+def Search():
+    if request.method == 'POST':
+        searchGroup = request.form['search-group']
+        searchText = request.form['search-text']
+        searchTextList = searchText.split(" ")
+        # http://stackoverflow.com/questions/2640628/sqlalchemy-an-efficient-better-select-by-primary-keys
+        searchFilter = and_( * [ElogData.text.contains(x) for x in searchTextList])
+
+        eLogSearch = ElogData.query.join(ElogGroups,(ElogGroups.entry_id == ElogData.entry_id)) \
+                                    .filter(ElogGroups.group_id == searchGroup) \
+                                    .filter(searchFilter) \
+                                    .from_self() \
+                                    .order_by(ElogData.created.desc())
+
+        groups = ElogGroupData.query.filter(ElogGroupData.private == 0).order_by(ElogGroupData.sort)
+
+        #return "Search for %s: list %s: filters %s: query %s" % (searchText, searchTextList, searchFilter, eLogSearch)
+        return render_template("search.html",elogEntry=eLogSearch, groups=groups)
 
 @app.route('/test/')
 def Test():

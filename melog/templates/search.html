@@ -1,0 +1,110 @@
+{% extends "template.html" %}
+
+{% block search %}
+<div id="top"></div>
+<form id="search-form" action="/search/" method="POST">
+    <select name="search-group" id="search-group" data-native-menu="true">
+        {% for group in groups -%}
+            <option value="{{ group.group_id }}">{{ group.group_title }}</option>
+        {% endfor %}
+    </select>
+    <label for="search-text" class="ui-hidden-accessible">Search:</label>
+    <input type="text" name="search-text" id="search-text" placeholder="Search for" value="" data-clear-btn="true">
+    <a href="#" onclick="document.forms['search-form'].submit();" class="ui-shadow ui-btn ui-corner-all ui-btn-b">Search</a>
+</form>
+
+{% endblock %}
+
+{% block content %}
+    <fieldset class="ui-field-contain">
+        <select name="view-group" id="view-group" data-native-menu="false">
+            {#  set default_group = default_group|string #}
+            {% for group in groups -%}
+                <option value="{{ group.urlName }}" {% if group.group_title|string == default_group|string %}selected{% endif %}>{{ group.group_title }}</option>
+            {% endfor %}
+        </select>
+    </fieldset>
+
+    {% for elog in elogEntry %}
+    <div class="ui-corner-all custom-corners"><a name="{{ elog.entry_id }}"></a>
+        <div class="ui-bar ui-bar-b">
+            <h3><a href="#{{ elog.entry_id }}" data-ajax="false">{{ elog.title }}</a></h3>
+        </div>
+        <div class="ui-body ui-body-b elog-breakpoint">
+            <div class="ui-grid-a">
+                <div id="badges" class="ui-block-a">
+                    {{ elog.created }}<br>
+                    {{ elog.author }}
+                </div>
+                <div id="entry" class="ui-block-b">
+                    <p>{{ elog.text|safe }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+        <p></p>
+    {% endfor %}
+
+    <div id="message">
+    <a href="#" onclick="$.mobile.silentScroll(0)" data-role="button" data-position="fixed" class="back-to-top ui-btn ui-btn-inline ui-btn-right ui-btn-icon-right ui-icon-arrow-u ui-corner-all ">Top</a>
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+
+    <div data-role="popup" id="dateSelect" data-arrow="b">
+        <!--<input type="text" data-role="date">-->
+        <div id="dateSelectInput"></div>
+    </div>
+
+    <script>
+        // Update page on change to dropdown menu
+        $("#view-group").bind("change",
+        function(event, ui){
+            var e = document.getElementById("view-group");
+            var strGroup = e.options[e.selectedIndex].value;
+            var currentdate = new Date();
+            var yea = currentdate.getFullYear();
+            var mon = currentdate.getMonth() + 1;
+            var day = currentdate.getDate();
+            if (mon < 10) {
+                mon = "0" + mon;
+            }
+            if (day < 10) {
+                day = "0" + day;
+            }
+            window.location.href = "/"+strGroup+"/"+yea+"/"+mon+"/"+day;
+            //alert(strGroup)
+        });
+
+        /* http://briancray.com/posts/scroll-to-top-link-jquery-css/ */
+        $(function () {
+
+            /* set variables locally for increased performance */
+            var scroll_timer;
+            var displayed = false;
+            var $message = $('#message a');
+            var $window = $(window);
+            var top = $(document.body).children(0).position().top;
+
+            /* react to scroll event on window */
+            $window.scroll(function () {
+                window.clearTimeout(scroll_timer);
+                scroll_timer = window.setTimeout(function () {
+                    if($window.scrollTop() <= top)
+                    {
+                        displayed = false;
+                        $message.fadeOut(500);
+                    }
+                    else if(displayed == false)
+                    {
+                        displayed = true;
+                        $message.stop(true, true).show().click(function () { $message.fadeOut(500); });
+                    }
+                }, 100);
+            });
+        });
+
+    </script>
+{% endblock %}
