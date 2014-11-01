@@ -1,0 +1,17 @@
+{
+    "name":         "handover",
+    "version":      "0.1",
+    "author":       "AUSYNCH",
+    "disaplayName": "Handover",
+    "mountPoint":   "/handover/",
+    "menuSort":     "10",
+    "altLink":      "http://sol.synchrotron.org.au/handover/",
+    "enabled":      "True",
+
+    "dependencies": {
+        "jQuery":   "2.1.1",
+        "Flask":    "0.10.1",
+        "others":   "as required"
+    }
+
+}

@@ -1,0 +1,17 @@
+{
+    "name":         "logs",
+    "version":      "0.1",
+    "author":       "AUSYNCH",
+    "disaplayName": "Logs",
+    "mountPoint":   "/logs/",
+    "menuSort":     "6",
+    "altLink":      "http://sol.synchrotron.org.au/logs/",
+    "enabled":      "True",
+
+    "dependencies": {
+        "jQuery":   "2.1.1",
+        "Flask":    "0.10.1",
+        "others":   "as required"
+    }
+
+}

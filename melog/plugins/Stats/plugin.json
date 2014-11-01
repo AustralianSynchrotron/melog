@@ -1,0 +1,17 @@
+{
+    "name":         "stats",
+    "version":      "0.1",
+    "author":       "AUSYNCH",
+    "disaplayName": "Stats",
+    "mountPoint":   "/stats/",
+    "menuSort":     "8",
+    "altLink":      "http://sol.synchrotron.org.au/stats/",
+    "enabled":      "True",
+
+    "dependencies": {
+        "jQuery":   "2.1.1",
+        "Flask":    "0.10.1",
+        "others":   "as required"
+    }
+
+}

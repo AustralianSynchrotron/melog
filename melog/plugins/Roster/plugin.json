@@ -1,0 +1,17 @@
+{
+    "name":         "roster",
+    "version":      "0.1",
+    "author":       "AUSYNCH",
+    "disaplayName": "Roster",
+    "mountPoint":   "/roster/",
+    "menuSort":     "4",
+    "altLink":      "http://sol.synchrotron.org.au/roster/",
+    "enabled":      "True",
+
+    "dependencies": {
+        "jQuery":   "2.1.1",
+        "Flask":    "0.10.1",
+        "others":   "as required"
+    }
+
+}
