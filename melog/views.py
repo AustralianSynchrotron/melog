@@ -1,4 +1,4 @@
-from flask import render_template,session,redirect,url_for,request
+from flask import render_template,session,redirect,url_for,request,current_app
 from melog import app
 from config import data
 from melog.models import ElogGroupData,ElogGroups,ElogData,SolUsers
@@ -6,7 +6,10 @@ from melog.database import db
 from sqlalchemy.sql import extract,and_,or_
 from datetime import datetime
 import ldap
+from flask.ext.plugins import get_plugins_list
 
+available_plugins = get_plugins_list()
+app.logger.debug(available_plugins)
 #Useful links
 #http://flask.pocoo.org/docs/0.10/quickstart/
 #https://pythonhosted.org/Flask-SQLAlchemy/index.html

@@ -1,6 +1,15 @@
-from flask import Flask,render_template
+from flask import Flask
+from flask.ext.plugins import PluginManager
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PLUGIN_FOLDER = os.path.join(BASE_DIR,"plugins/")
 
 app = Flask(__name__)
+
+#initialise the plugin manager
+#plugin_manager = PluginManager(app,plugin_folder=PLUGIN_FOLDER)
+plugin_manager = PluginManager(app)
 
 import melog.config
 import melog.views
