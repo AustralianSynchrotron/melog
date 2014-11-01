@@ -4,11 +4,12 @@ from melog.pluginManager import AppPlugin
 __plugin__ = "Handover"
 __version__ = "0.1"
 
-Handover = Blueprint("Handover",__name__,template_folder="templates")
+handover = Blueprint("Handover",__name__,template_folder="templates")
 
-@Handover.route("/")
+@handover.route("/")
 def index():
     return "Handover Plugin Active..."
+    #return render_template()
 
 class Handover(AppPlugin):
     def setup(self):
