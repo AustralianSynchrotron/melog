@@ -1,4 +1,6 @@
 #http://lkubuntu.wordpress.com/2012/10/02/writing-a-python-plugin-api/
+#https://github.com/sh4nks/flask-plugins
+#http://flask-plugins.readthedocs.org/en/latest/
 import imp
 import os
 from flask import current_app

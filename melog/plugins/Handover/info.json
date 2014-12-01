@@ -1,6 +1,6 @@
 {
-    "identifier":   "Handover",
-    "name":         "Handover",
+    "identifier":   "handover",
+    "name":         "handover",
     "version":      "0.1",
     "author":       "AUSYNCH",
     "description":  "A Plugin for the handover information",
