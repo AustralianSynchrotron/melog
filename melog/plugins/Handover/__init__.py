@@ -4,8 +4,8 @@ from melog.pluginManager import AppPlugin
 __plugin__ = "handover"
 __version__ = "0.1"
 
-#handover = Blueprint("handover",__name__,template_folder="templates")
-handover = Blueprint("handover",__name__)
+handover = Blueprint("handover",__name__,template_folder="templates")
+#handover = Blueprint("handover",__name__)
 
 @handover.route("/")
 def index():
