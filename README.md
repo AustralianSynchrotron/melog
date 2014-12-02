@@ -1,9 +1,4 @@
 melog
 =====
 Required Dependancies:
-* python-mysql
-* flask
-* flask-sqlalchemy
-* flask-plugins
-* ldap
-* jinja2
+* see requirements.txt
